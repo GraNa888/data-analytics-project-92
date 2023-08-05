@@ -72,11 +72,12 @@ customers_by_month.csv
 select --выбери
 to_char(sale_date, 'YYYY-MM') as date, --преобразуй sale_date в YYYY-MM назови столбец date
 count(distinct customer_id) as total_customers, -- посчитай уникальные значения customer_id назови столбец total_customers
-sum(price) as income --суммируй price назови столбец income
-from products p --за счет левого присоединения к таб products
-left join sales s -- таб sales
+sum(price * quantity) as income --суммируй price умноженный на quantity назови столбец income
+from products p --за счет присоединения к таб products
+inner join sales s -- таб sales
 on p.product_id = s.product_id --по общему значению product_id
-group by date --сгруппируй по date автоматически по возрастанию
+group by date -- сгруппируй по date 
+order by date -- отсортируй по date автоматически по возрастанию
 
 
 special_offer.csv 
