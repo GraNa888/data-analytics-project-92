@@ -1,3 +1,21 @@
+top_10_popular_products
+  это ведь задание было в гугл шитс и я сделала сводную таблицу:
+  по строке (ProductID) 
+  по значениям Total Quantity (SUM), Quantity (MAX)
+  Далее по формуле =MAX(B2:B72) посчитала максимальное значение Total Quantity 
+  и от него уже отфильтровала значения по столбцам ProductID и MAX Quantity = FILTER(A2:C72,B2:B72>12000)
+
+ top_10_profitable_products
+  в сводной таблице добавила добавила таблицу продаж и через =VLOOKUP(A:A, E:F,2,false) где А = ProductID, E = ProductId (not sort), F = Price 
+  посчитала Price for product
+  Далее посчитала Amount (not sort) =B2*G2 где B = Total Quantity G = Price for product
+  И отсортировала =SORT(D2:E72,{1},false) где D = Amount (not sort), E = ProductId (not sort)
+  Далее снова сводная таблица по ProductID в порядке возрастания и Amount SUM
+  Вывела на отдельную вкладку top_10_profitable_products.csv22 значения и округлила через =ROUNDUP($B$2:$B$11,0)
+  https://docs.google.com/spreadsheets/d/1bpqzpNynzSUKqbCcqEbYVwCL8I15ldmCozWt8sKdT2Q/edit#gid=1057792642
+
+  
+
 SELECT COUNT(*) AS customers_count 
 FROM customers; 
 --посчитай уникальные значения customer_id из таблицы customers и переименуй столбец в customers_count
@@ -6,15 +24,15 @@ FROM customers;
 top_10_total_income.csv 
 select 
 concat ("first_name", ' ', "last_name") as name, --  объедени first_name и last_name (с пробелом посередине) и назови столбец name
-count (quantity) as operations, --  посчитай quantity и назови столбец operations, для этого объедени таблицы sales и employees по общему значению где sales_person_id = employee_id 
-sum(price) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
+count (*) as operations, --  посчитай количество sales_id и назови столбец operations, для этого объедени таблицы sales и employees по общему значению где sales_person_id = employee_id 
+sum(price*quantity) as income --суммируй произведение price и quantity и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
 from sales
 inner join employees
 on sales.sales_person_id = employees.employee_id
 inner join products 
 on sales.product_id = products.product_id
 group by first_name, last_name --  сгруппируй таблицу по first_name, last_name 
-order by income DESC, operations desc
+order by income DESC
 limit 10 --  отсортируй 10 позиций в порядке убывания по income и operations
 
 
