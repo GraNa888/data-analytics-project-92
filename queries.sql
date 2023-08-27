@@ -25,7 +25,7 @@ top_10_total_income.csv
 select 
 concat ("first_name", ' ', "last_name") as name, --  объедени first_name и last_name (с пробелом посередине) и назови столбец name
 count (*) as operations, --  посчитай количество sales_id и назови столбец operations, для этого объедени таблицы sales и employees по общему значению где sales_person_id = employee_id 
-sum(price*quantity) as income --суммируй произведение price и quantity и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
+floor(sum(price*quantity)) as income --суммируй произведение price и quantity и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
 from sales
 inner join employees
 on sales.sales_person_id = employees.employee_id
