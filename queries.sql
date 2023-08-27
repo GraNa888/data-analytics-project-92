@@ -53,7 +53,7 @@ having round(avg(price * quantity)) <
 	on sales.sales_person_id = employees.employee_id
 	inner join products 
 	on sales.product_id = products.product_id) as a)
-;
+order by average_income
 
 
 day_of_the_week_income.csv 
