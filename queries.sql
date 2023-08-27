@@ -60,7 +60,7 @@ day_of_the_week_income.csv
 select 
 concat ("first_name", ' ', "last_name") as name, --объедени first_name и last_name (с пробелом посередине) и назови столбец name в таблице employees
 to_char(sale_date, 'day') as weekday, --преобразуй sale_date по дню недели, назови столбец weekday из sales
-floor(sum(price*quantity)) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
+round(sum(price*quantity)) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
 from sales 
 inner join employees
 on sales.sales_person_id = employees.employee_id
