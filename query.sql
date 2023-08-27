@@ -63,7 +63,7 @@ concat ("first_name", ' ', "last_name") as name, --объедени first_name �
 to_char (sale_date, 'Day') as weekday, --преобразуй sale_date по дню недели, назови столбец weekday из sales
 sum(price) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
 from sales 
-right join employees
+inner join employees
 on sales.sales_person_id = employees.employee_id
 left join products 
 on sales.product_id = products.product_id
