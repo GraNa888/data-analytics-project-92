@@ -101,14 +101,14 @@ special_offer.csv
 select --выбери
 concat (c.first_name, ' ', c.last_name) as customer, --и объедени c.first_name и c.last_name с пробеломб назови столбец customer
 min(sale_date) as sale_date, --выбери min(sale_date) из sales
-concat (e.first_name, ' ', e.last_name) as seller -- объедени e.first_name и e.last_name с пробеломб назови столбец seller
-from products p --за счет левого присоединения к таб products
-left join sales s -- таб sales
-on p.product_id = s.product_id --по общему значению product_id
-Left join employees e --за счет левого присоединения к таб employees
+min(concat(e.first_name, ' ', e.last_name)) as seller -- объедени e.first_name и e.last_name с пробеломб назови столбец seller
+from customers c 
+inner join sales s -- таб sales
+on c.customer_id = s.customer_id
+inner join employees e --за счет левого присоединения к таб employees
 on e.employee_id = s.sales_person_id --по общему значению employee_id
-Left join customers c --за счет левого присоединения таб customers
-on c.customer_id = s.customer_id --по значению customer_id
+inner join products p
+on p.product_id = s.product_id
 where price = 0 --где price =0
-group by c.customer_id, seller --сгруппируй по c.customer_id, seller
+group by c.customer_id, customer  --сгруппируй по c.customer_id, seller
 order by c.customer_id --отсортируй по c.customer_id
