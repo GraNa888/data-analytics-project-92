@@ -59,8 +59,8 @@ order by average_income
 day_of_the_week_income.csv 
 select 
 concat ("first_name", ' ', "last_name") as name, --объедени first_name и last_name (с пробелом посередине) и назови столбец name в таблице employees
-to_char(sale_date, 'FMday') as weekday, --преобразуй sale_date по дню недели, назови столбец weekday из sales
-sum(price) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
+to_char(sale_date, 'day') as weekday, --преобразуй sale_date по дню недели, назови столбец weekday из sales
+floor(sum(price*quantity)) as income --суммируй price и назови столбец income, для этого объедени таблицы sales и products по общему значению product_id
 from sales 
 inner join employees
 on sales.sales_person_id = employees.employee_id
@@ -68,12 +68,12 @@ left join products
 on sales.product_id = products.product_id
 group by --сгруппируй по 
 to_char(sale_date, 'ID'), --преобразованному sale_date по дню недели пон (1) - вск (7)
-to_char(sale_date, 'FMday'), --преобразованному sale_date дни недели
+to_char(sale_date, 'day'), --преобразованному sale_date дни недели
 concat("first_name", ' ', "last_name") --объедени first_name и last_name (с пробелом посередине)
 order by --отсортируй по 
 to_char(sale_date, 'ID'), --преобразованному sale_date по дню недели пон (1) - вск (7)
 name --имени
-  
+
 age_groups.csv
 
 select (case  --выбери age_category с условием и посчитай customer_id из таблицы customers
